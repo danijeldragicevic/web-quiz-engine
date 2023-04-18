@@ -6,11 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class UserDetails implements IUserDetails {
+public class UserDetailsImpl implements IUserDetails {
     private final String username;
     private final String password;
     
-    public UserDetails(User user) {
+    public UserDetailsImpl(User user) {
         username = user.getUsername();
         password = user.getPassword();
     }

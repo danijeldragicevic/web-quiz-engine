@@ -7,7 +7,7 @@ import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
 import com.example.engine.entities.UserQuizSoln;
 
-public interface IMapper {
+public interface IModelMapper {
     Quiz mapToEntity(QuizDto quizDto);
     QuizDto mapToDto(Quiz quiz);
     

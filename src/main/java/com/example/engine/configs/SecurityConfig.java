@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/actuator/shutdown").permitAll()
-                .mvcMatchers("/api/register").permitAll()
+                .mvcMatchers("/api/register", "/h2/**").permitAll()
                 .mvcMatchers("/**").authenticated()
                 .and()
                 .httpBasic()
