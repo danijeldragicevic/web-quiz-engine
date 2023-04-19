@@ -3,7 +3,6 @@ package com.example.engine.controllers;
 import com.example.engine.dtos.QuizDto;
 import com.example.engine.dtos.UserQuizSolnDto;
 import com.example.engine.entities.User;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +29,9 @@ public interface IQuizController {
                                                   @PathVariable int id, 
                                                   @RequestBody Map<String, List<Integer>> answers);
     
-    Page<Map<String, UserQuizSolnDto>> getSolvedQuizzes(User user, int page);
+    @GetMapping("/quizzes/completed")
+    ResponseEntity<Map<String, List<UserQuizSolnDto>>> getCompletedQuizzes(@AuthenticationPrincipal UserDetails userDetails, 
+                                                                     @RequestParam(defaultValue = "0") int page);
+    
     Map<String, String> deleteQuiz(User user, int quizId);
 }

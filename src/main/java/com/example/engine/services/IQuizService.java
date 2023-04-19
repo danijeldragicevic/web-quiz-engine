@@ -19,7 +19,8 @@ public interface IQuizService {
     
     Map<String, String> solveQuiz(User user, int quizId, List<Integer> submittedAnswers);
     
-    Page<Map<String, UserQuizSoln>> getSolvedQuizzes(User user, int pageNo);
+    Page<UserQuizSoln> findAllByUserId(int id, Pageable pageable);
     
     Map<String, String> deleteQuiz(User user, int quizId);
+
 }

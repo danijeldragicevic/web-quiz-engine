@@ -75,9 +75,10 @@ public class QuizServiceImpl implements IQuizService {
     }
 
     @Override
-    public Page<Map<String, UserQuizSoln>> getSolvedQuizzes(User user, int pageNo) {
-        return null;
+    public Page<UserQuizSoln> findAllByUserId(int id, Pageable pageable) {
+        return userQuizSolnRepository.findAllByUserId(id, pageable);
     }
+
 
     @Override
     public Map<String, String> deleteQuiz(User user, int quizId) {

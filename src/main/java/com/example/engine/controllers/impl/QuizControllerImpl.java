@@ -5,6 +5,7 @@ import com.example.engine.dtos.QuizDto;
 import com.example.engine.dtos.UserQuizSolnDto;
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
+import com.example.engine.entities.UserQuizSoln;
 import com.example.engine.exceptions.QuizNotFoundException;
 import com.example.engine.mappers.IModelMapper;
 import com.example.engine.services.IQuizService;
@@ -59,7 +60,7 @@ public class QuizControllerImpl implements IQuizController {
 
     @Override
     public ResponseEntity<List<QuizDto>>  getAllQuizzes(int page) {
-        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("id").ascending());
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("ID").ascending());
         Page<Quiz> quizPage = quizService.findAll(pageable);
         
         List<QuizDto> quizDtoList = new ArrayList<>();
@@ -85,8 +86,17 @@ public class QuizControllerImpl implements IQuizController {
     }
 
     @Override
-    public Page<Map<String, UserQuizSolnDto>> getSolvedQuizzes(User user, int page) {
-        return null;
+    public ResponseEntity<Map<String, List<UserQuizSolnDto>>> getCompletedQuizzes(UserDetails userDetails, int page) {
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("COMPLETED_AT").descending());
+        Page<UserQuizSoln> solvedQuizzes = quizService.findAllByUserId(user.getId(), pageable);
+        
+        List<UserQuizSolnDto> solvedQuizzesDtos = new ArrayList<>();
+        for (UserQuizSoln u: solvedQuizzes.getContent()) {
+            solvedQuizzesDtos.add(modelMapper.mapToDto(u));
+        }
+        
+        return ResponseEntity.ok(Map.of("content", solvedQuizzesDtos));
     }
 
     @Override

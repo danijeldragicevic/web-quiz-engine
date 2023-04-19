@@ -61,6 +61,10 @@ public class ModelMapperImpl implements IModelMapper {
 
     @Override
     public UserQuizSolnDto mapToDto(UserQuizSoln userQuizSoln) {
-        return null;
+        UserQuizSolnDto dto = new UserQuizSolnDto();
+        dto.setId(userQuizSoln.getQuiz().getId());
+        dto.setCompletedAt(userQuizSoln.getCompletedAt());
+        
+        return dto;
     }
 }

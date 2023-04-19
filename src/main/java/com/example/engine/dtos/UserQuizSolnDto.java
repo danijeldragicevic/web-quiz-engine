@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class UserQuizSolnDto {
-    private int quizId;
+    private int id;
     private LocalDateTime completedAt;
 }
