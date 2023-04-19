@@ -15,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -69,8 +71,17 @@ public class QuizControllerImpl implements IQuizController {
     }
 
     @Override
-    public Map<String, String> solveQuiz(User user, int quizId, Map<String, List<Integer>> answers) {
-        return null;
+    public ResponseEntity<Map<String, String>> solveQuiz(@AuthenticationPrincipal UserDetails userDetails, 
+                                         int id, Map<String, List<Integer>> answers) {
+        try {
+            User user = userService.findUserByUsername(userDetails.getUsername());
+            Map<String, String> response = quizService.solveQuiz(user, id, answers.get("answers"));
+            
+            return ResponseEntity.ok(response);
+        
+        } catch (UsernameNotFoundException | QuizNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Override

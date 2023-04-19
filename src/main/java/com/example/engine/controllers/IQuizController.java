@@ -25,9 +25,11 @@ public interface IQuizController {
     @GetMapping("/quizzes")
     ResponseEntity<List<QuizDto>> getAllQuizzes(@RequestParam(defaultValue = "0") int page);
     
+    @PostMapping("/quizzes/{id}/solve")
+    ResponseEntity<Map<String, String>> solveQuiz(@AuthenticationPrincipal UserDetails userDetails, 
+                                                  @PathVariable int id, 
+                                                  @RequestBody Map<String, List<Integer>> answers);
     
-    
-    Map<String, String> solveQuiz(User user, int quizId, Map<String, List<Integer>> answers);
     Page<Map<String, UserQuizSolnDto>> getSolvedQuizzes(User user, int page);
     Map<String, String> deleteQuiz(User user, int quizId);
 }

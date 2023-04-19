@@ -12,10 +12,14 @@ import java.util.Map;
 
 public interface IQuizService {
     Quiz createQuiz(Quiz quiz);
+    
     Quiz getQuizById(int quizId) throws QuizNotFoundException;
+    
     Page<Quiz> findAll(Pageable pageable);
     
-    Map<String, String> solveQuiz(User user, int quizId, Map<String, List<Integer>> answers);
+    Map<String, String> solveQuiz(User user, int quizId, List<Integer> submittedAnswers);
+    
     Page<Map<String, UserQuizSoln>> getSolvedQuizzes(User user, int pageNo);
+    
     Map<String, String> deleteQuiz(User user, int quizId);
 }
