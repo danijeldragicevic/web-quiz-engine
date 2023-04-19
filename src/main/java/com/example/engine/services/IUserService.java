@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public interface IUserService extends UserDetailsService {
     User saveUser(User user);
     User findUserByUserId(int id);
+    User findUserByUsername(String username) throws UsernameNotFoundException;
     User registerNewUser(User user) throws UserAlreadyExistsException;
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

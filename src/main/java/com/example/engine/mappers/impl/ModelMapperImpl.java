@@ -18,13 +18,26 @@ public class ModelMapperImpl implements IModelMapper {
     private BeansConfig beansConfig;
 
     @Override
-    public Quiz mapToEntity(QuizDto quizDto) {
-        return null;
+    public Quiz mapToEntity(User user, QuizDto quizDto) {
+        Quiz quiz = new Quiz();
+        quiz.setTitle(quizDto.getTitle());
+        quiz.setText(quizDto.getText());
+        quiz.setOptions(quizDto.getOptions());
+        quiz.setAnswers(quizDto.getAnswers());
+        quiz.setCreatedBy(user);
+        
+        return quiz;
     }
 
     @Override
     public QuizDto mapToDto(Quiz quiz) {
-        return null;
+        QuizDto quizDto = new QuizDto();
+        quizDto.setId(quiz.getId());
+        quizDto.setTitle(quiz.getTitle());
+        quizDto.setText(quiz.getText());
+        quizDto.setOptions(quiz.getOptions());
+        
+        return quizDto;
     }
 
     @Override

@@ -27,6 +27,6 @@ public class UserControllerImpl implements IUserController {
             return ResponseEntity.ok(Map.of("message", "User already exists!"));
         }
         
-        return ResponseEntity.ok(Map.of("message", "New user created."));
+        return ResponseEntity.ok(Map.of("message", "User successfully created."));
     }
 }

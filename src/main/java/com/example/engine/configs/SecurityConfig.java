@@ -20,6 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userDetailsService(userDetailsService)
             .passwordEncoder(beansConfig.getEncoder());
         
+        // This is in memory user. To have entry point to the application.
+        // >>>>>>>>>>>>>> Should NEVER EVER happen in real prod application! <<<<<<<<<<<<<<<<<< 
         auth
 			.inMemoryAuthentication()
 			.withUser("user")

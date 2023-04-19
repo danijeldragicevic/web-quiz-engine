@@ -26,6 +26,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findUserByUsername(username);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UsernameNotFoundException("Not found: " + username);
+        }
+    }
+
+    @Override
     public User registerNewUser(User user) throws UserAlreadyExistsException {
         UserDetails userDetails = null;
         try {

@@ -11,7 +11,6 @@ import java.util.Map;
 
 @RequestMapping("/api")
 public interface IUserController {
-    
     @PostMapping("/register")
     ResponseEntity<Map<String, String>> registerUser(@RequestBody @Valid UserDto userDto);
 }
