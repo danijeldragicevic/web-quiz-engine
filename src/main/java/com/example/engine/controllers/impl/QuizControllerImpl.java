@@ -6,6 +6,7 @@ import com.example.engine.dtos.UserQuizSolnDto;
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
 import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.exceptions.OperationNotAllowedException;
 import com.example.engine.exceptions.QuizNotFoundException;
 import com.example.engine.mappers.IModelMapper;
 import com.example.engine.services.IQuizService;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -100,7 +102,16 @@ public class QuizControllerImpl implements IQuizController {
     }
 
     @Override
-    public Map<String, String> deleteQuiz(User user, int quizId) {
-        return null;
+    public ResponseEntity<?> deleteQuiz(UserDetails userDetails, int id) {
+        try {
+            User user = userService.findUserByUsername(userDetails.getUsername());
+            Quiz quiz = quizService.getQuizById(id);
+            
+            return ResponseEntity.ok(quizService.deleteQuiz(user, quiz));
+        } catch (QuizNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (OperationNotAllowedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 }

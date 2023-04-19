@@ -3,6 +3,7 @@ package com.example.engine.services.impl;
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
 import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.exceptions.OperationNotAllowedException;
 import com.example.engine.exceptions.QuizNotFoundException;
 import com.example.engine.repositories.IQuizRepository;
 import com.example.engine.repositories.IUserQuizSolnRepository;
@@ -81,8 +82,16 @@ public class QuizServiceImpl implements IQuizService {
 
 
     @Override
-    public Map<String, String> deleteQuiz(User user, int quizId) {
-        return null;
+    public Map<String, String> deleteQuiz(User user, Quiz quiz) throws OperationNotAllowedException {
+        Map<String, String> responseMsg = new HashMap<>();
+        if (user.getId() == quiz.getCreatedBy().getId()) {
+            quizRepository.delete(quiz);
+            responseMsg.put("message", "Quiz successfully deleted.");
+        } else {
+            throw new OperationNotAllowedException();
+        }
+        
+        return responseMsg;
     }
 
     private boolean answersAreCorrect(List<Integer> quizzesAnswers, List<Integer> submittedAnswers) {

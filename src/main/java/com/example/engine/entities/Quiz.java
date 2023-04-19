@@ -39,7 +39,7 @@ public class Quiz {
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<UserQuizSoln> usersWhoSolvedQuiz = new LinkedHashSet<>();
 }

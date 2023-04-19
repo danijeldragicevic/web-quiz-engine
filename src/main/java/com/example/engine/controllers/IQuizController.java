@@ -2,7 +2,6 @@ package com.example.engine.controllers;
 
 import com.example.engine.dtos.QuizDto;
 import com.example.engine.dtos.UserQuizSolnDto;
-import com.example.engine.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,5 +32,7 @@ public interface IQuizController {
     ResponseEntity<Map<String, List<UserQuizSolnDto>>> getCompletedQuizzes(@AuthenticationPrincipal UserDetails userDetails, 
                                                                      @RequestParam(defaultValue = "0") int page);
     
-    Map<String, String> deleteQuiz(User user, int quizId);
+    @DeleteMapping("/quizzes/{id}")
+    ResponseEntity<?> deleteQuiz(@AuthenticationPrincipal UserDetails userDetails, 
+                                 @PathVariable int id);
 }
