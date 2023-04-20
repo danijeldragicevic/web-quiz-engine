@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserQuizSolnDto {
+public class QuizCompletionDto {
     private int id;
     private LocalDateTime completedAt;
 }

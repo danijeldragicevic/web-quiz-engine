@@ -8,12 +8,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "user_quiz")
+@Entity(name = "quizzes_completions")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserQuizSoln {
+public class QuizCompletion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

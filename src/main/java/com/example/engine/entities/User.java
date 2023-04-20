@@ -28,5 +28,5 @@ public class User {
     
     @OneToMany(mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<UserQuizSoln> quizzesSolved = new LinkedHashSet<>();
+    private Set<QuizCompletion> quizzesSolved = new LinkedHashSet<>();
 }

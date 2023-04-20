@@ -2,7 +2,7 @@ package com.example.engine.services;
 
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
-import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.entities.QuizCompletion;
 import com.example.engine.exceptions.OperationNotAllowedException;
 import com.example.engine.exceptions.QuizNotFoundException;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public interface IQuizService {
     
     Map<String, String> solveQuiz(User user, int quizId, List<Integer> submittedAnswers);
     
-    Page<UserQuizSoln> findAllByUserId(int id, Pageable pageable);
+    Page<QuizCompletion> findAllByUserId(int id, Pageable pageable);
     
     Map<String, String> deleteQuiz(User user, Quiz quiz) throws OperationNotAllowedException;
 

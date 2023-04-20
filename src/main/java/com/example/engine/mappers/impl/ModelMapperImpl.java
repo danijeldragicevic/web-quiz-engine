@@ -3,10 +3,10 @@ package com.example.engine.mappers.impl;
 import com.example.engine.configs.BeansConfig;
 import com.example.engine.dtos.QuizDto;
 import com.example.engine.dtos.UserDto;
-import com.example.engine.dtos.UserQuizSolnDto;
+import com.example.engine.dtos.QuizCompletionDto;
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
-import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.entities.QuizCompletion;
 import com.example.engine.mappers.IModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,15 +55,15 @@ public class ModelMapperImpl implements IModelMapper {
     }
 
     @Override
-    public UserQuizSoln mapToEntity(UserQuizSolnDto userQuizSolnDto) {
+    public QuizCompletion mapToEntity(QuizCompletionDto quizCompletionDto) {
         return null;
     }
 
     @Override
-    public UserQuizSolnDto mapToDto(UserQuizSoln userQuizSoln) {
-        UserQuizSolnDto dto = new UserQuizSolnDto();
-        dto.setId(userQuizSoln.getQuiz().getId());
-        dto.setCompletedAt(userQuizSoln.getCompletedAt());
+    public QuizCompletionDto mapToDto(QuizCompletion quizCompletion) {
+        QuizCompletionDto dto = new QuizCompletionDto();
+        dto.setId(quizCompletion.getQuiz().getId());
+        dto.setCompletedAt(quizCompletion.getCompletedAt());
         
         return dto;
     }

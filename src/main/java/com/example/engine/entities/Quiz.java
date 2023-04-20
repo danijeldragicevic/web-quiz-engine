@@ -41,5 +41,5 @@ public class Quiz {
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<UserQuizSoln> usersWhoSolvedQuiz = new LinkedHashSet<>();
+    private Set<QuizCompletion> usersWhoSolvedQuiz = new LinkedHashSet<>();
 }

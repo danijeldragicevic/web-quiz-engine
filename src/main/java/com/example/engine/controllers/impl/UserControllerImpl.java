@@ -24,7 +24,7 @@ public class UserControllerImpl implements IUserController {
         try {
             userService.registerNewUser(user);
         } catch (UserAlreadyExistsException e) {
-            return ResponseEntity.ok(Map.of("message", "User already exists!"));
+            return ResponseEntity.badRequest().build();
         }
         
         return ResponseEntity.ok(Map.of("message", "User successfully created."));

@@ -2,10 +2,10 @@ package com.example.engine.controllers.impl;
 
 import com.example.engine.controllers.IQuizController;
 import com.example.engine.dtos.QuizDto;
-import com.example.engine.dtos.UserQuizSolnDto;
+import com.example.engine.dtos.QuizCompletionDto;
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
-import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.entities.QuizCompletion;
 import com.example.engine.exceptions.OperationNotAllowedException;
 import com.example.engine.exceptions.QuizNotFoundException;
 import com.example.engine.mappers.IModelMapper;
@@ -30,7 +30,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class QuizControllerImpl implements IQuizController {
-    public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE = 5;
     private final IModelMapper modelMapper;
     private final IQuizService quizService;
     private final IUserService userService;
@@ -62,7 +62,7 @@ public class QuizControllerImpl implements IQuizController {
 
     @Override
     public ResponseEntity<List<QuizDto>>  getAllQuizzes(int page) {
-        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("ID").ascending());
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("id").ascending());
         Page<Quiz> quizPage = quizService.findAll(pageable);
         
         List<QuizDto> quizDtoList = new ArrayList<>();
@@ -88,13 +88,13 @@ public class QuizControllerImpl implements IQuizController {
     }
 
     @Override
-    public ResponseEntity<Map<String, List<UserQuizSolnDto>>> getCompletedQuizzes(UserDetails userDetails, int page) {
+    public ResponseEntity<Map<String, List<QuizCompletionDto>>> getCompletedQuizzes(UserDetails userDetails, int page) {
         User user = userService.findUserByUsername(userDetails.getUsername());
         Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("COMPLETED_AT").descending());
-        Page<UserQuizSoln> solvedQuizzes = quizService.findAllByUserId(user.getId(), pageable);
+        Page<QuizCompletion> solvedQuizzes = quizService.findAllByUserId(user.getId(), pageable);
         
-        List<UserQuizSolnDto> solvedQuizzesDtos = new ArrayList<>();
-        for (UserQuizSoln u: solvedQuizzes.getContent()) {
+        List<QuizCompletionDto> solvedQuizzesDtos = new ArrayList<>();
+        for (QuizCompletion u: solvedQuizzes.getContent()) {
             solvedQuizzesDtos.add(modelMapper.mapToDto(u));
         }
         

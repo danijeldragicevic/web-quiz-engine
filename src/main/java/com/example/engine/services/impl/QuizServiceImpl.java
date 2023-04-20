@@ -2,11 +2,11 @@ package com.example.engine.services.impl;
 
 import com.example.engine.entities.Quiz;
 import com.example.engine.entities.User;
-import com.example.engine.entities.UserQuizSoln;
+import com.example.engine.entities.QuizCompletion;
 import com.example.engine.exceptions.OperationNotAllowedException;
 import com.example.engine.exceptions.QuizNotFoundException;
 import com.example.engine.repositories.IQuizRepository;
-import com.example.engine.repositories.IUserQuizSolnRepository;
+import com.example.engine.repositories.IQuizCompletionRepository;
 import com.example.engine.repositories.IUserRepository;
 import com.example.engine.services.IQuizService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.*;
 public class QuizServiceImpl implements IQuizService {
     private final IQuizRepository quizRepository;
     private final IUserRepository userRepository;
-    private final IUserQuizSolnRepository userQuizSolnRepository;
+    private final IQuizCompletionRepository quizCompletionRepository;
     
     @Override
     public Quiz createQuiz(Quiz quiz) {
@@ -47,7 +47,7 @@ public class QuizServiceImpl implements IQuizService {
 
     @Override
     public Map<String, String> solveQuiz(User user, int quizId, List<Integer> submittedAnswers) {
-        UserQuizSoln quizSolution = new UserQuizSoln();
+        QuizCompletion quizSolution = new QuizCompletion();
         Quiz quiz = getQuizById(quizId);
         
         Map<String, String> responseMsg = new HashMap<>();
@@ -62,7 +62,7 @@ public class QuizServiceImpl implements IQuizService {
             responseMsg.put("success", "true");
             responseMsg.put("feedback", "Congratulations, you're right!");
         } else {
-            responseMsg.put("success", "false");
+            responseMsg.put("success", "false"); 
             responseMsg.put("false", "Wrong answer! Please, try again.");
         }
 
@@ -76,8 +76,8 @@ public class QuizServiceImpl implements IQuizService {
     }
 
     @Override
-    public Page<UserQuizSoln> findAllByUserId(int id, Pageable pageable) {
-        return userQuizSolnRepository.findAllByUserId(id, pageable);
+    public Page<QuizCompletion> findAllByUserId(int id, Pageable pageable) {
+        return quizCompletionRepository.findAllByUserId(id, pageable);
     }
 
 
@@ -116,8 +116,8 @@ public class QuizServiceImpl implements IQuizService {
     }
     
     @Transactional
-    void updateRepositories(UserQuizSoln quizSolution, User user, Quiz quiz) {
-        userQuizSolnRepository.save(quizSolution);
+    void updateRepositories(QuizCompletion quizSolution, User user, Quiz quiz) {
+        quizCompletionRepository.save(quizSolution);
         userRepository.save(user);
         quizRepository.save(quiz);
     }
