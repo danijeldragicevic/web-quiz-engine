@@ -13,7 +13,7 @@ Application use embedded H2 database and Basic authentication.
 
 # Technology
 - Java 11
-- Spring Boot 2.7.10 (Spring Web MVC, Spring Data Jpa, Spring Security, Spring Validation, Project Lombok, H2 database, Pagination, Native Query)
+- Spring Boot 2.7.10 (Spring Web MVC, Spring REST, Spring Data Jpa, Spring Security, Spring Validation, Project Lombok, H2 database, Pagination, Native Query)
 - Gradle 7.4
 
 # To run application:
